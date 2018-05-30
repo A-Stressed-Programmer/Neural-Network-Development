@@ -14,6 +14,10 @@ https://www.tensorflow.org/
 **Matplot Library(0.1.0);**
 https://matplotlib.org/
 
+**Visual Studio Enterprise 2017;**
+https://www.visualstudio.com/vs/enterprise/
+(Pending development to independant executable)
+
 ## Python Dependancies
 **Math,**
 
