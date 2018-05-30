@@ -1,0 +1,2 @@
+model_checkpoint_path: "Bi-Direcitonal-RNN.ckpt"
+all_model_checkpoint_paths: "Bi-Direcitonal-RNN.ckpt"

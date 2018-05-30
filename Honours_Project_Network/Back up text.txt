@@ -1,0 +1,49 @@
+                    #I'm old and unloved
+                    #_, output_val, testing, mse = sess.run([training_op, fw_outputs, bw_outputs, loss], feed_dict={X: x_batch, Y: y_batch})#TRAINING
+                    #_, fw_results, bw_results, mse = sess.run([training_op, fw_outputs, bw, loss], feed_dict={X: x_batch, Y: y_batch})#TRAINING
+					
+					                    fw_loss_out.append(fw_mse)#Append forward Loss
+                    bw_loss_out.append(bw_mse)#Append Backward Loss
+					
+					        '''
+        #--Forward Cell--#
+        fw_lstms = []
+        for _ in range(self.n_layers):
+            cell = tf.contrib.rnn.BasicLSTMCell(self.n_neurons, forget_bias=1.0, activation=self.activation_function) 
+            cell = tf.nn.rnn_cell.DropoutWrapper(cell, input_keep_prob=prob, output_keep_prob=prob, state_keep_prob=prob)
+            fw_lstms.append(cell)
+
+        #--Backward Cell--#
+        bw_lstms = []
+        for _ in range(self.n_layers):
+            cell = tf.contrib.rnn.BasicLSTMCell(self.n_neurons, forget_bias=1.0, activation=self.activation_function) 
+            cell = tf.nn.rnn_cell.DropoutWrapper(cell, input_keep_prob=prob, output_keep_prob=prob, state_keep_prob=prob)
+            bw_lstms.append(cell)
+        '''
+
+
+        '''
+        #--Type One--#
+        rnn_outputs, final_states_fw, final_states_bw = tf.contrib.rnn.stack_bidirectional_dynamic_rnn(cells_fw = fw_lstms, cells_bw = bw_lstms, inputs = X, dtype=tf.float32)
+        '''
+
+        #rnn_outputs, final_states_fw, final_states_bw = tf.contrib.rnn.stack_bidirectional_dynamic_rnn(cells_fw = fw_lstms, cells_bw = bw_lstms, inputs = X, dtype=tf.float32)
+		
+		        '''
+        #--Bidirectional Note--#
+        Does this require two seperate loss caluclations functions?, for forward and backward, or does theBidirectional automatically ajust this?
+        Atypical Bi-Directional spreads the inputs to both layers of Forward/Backward however the results are concated for some Contrived reason...
+
+        In theory their should be one training op, getting the outputs is annoying...
+        Try both, document resuslts
+        '''
+
+
+        #bi_final_state = tf.concat([final_states_fw[-1][1], final_states_bw[-1][1]], 1)#For Finial States
+        #fw_rnn_ouput, bw_rnn_output = rnn_outputs#Unpack Tuple test
+        '''
+        with tf.name_scope("wrapper"):
+            stacked_rnn_outputs = tf.reshape(rnn_outputs, [-1, self.n_neurons])
+            stacked_outputs = tf.layers.dense(stacked_rnn_outputs, num_out)
+            outputs = tf.reshape(stacked_outputs, [steps*2, num_out])
+        '''
